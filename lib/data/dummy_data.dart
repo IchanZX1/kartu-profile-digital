@@ -1,9 +1,9 @@
 import '../models/models.dart';
 
 const defaultProfile = Profile(
-  name: 'Fakhry Firdaus',
-  bio: 'Software Engineer & Dosen. Suka berbagi ilmu tentang Flutter '
-      'dan pengembangan aplikasi mobile.',
+  name: 'Alif Taran Ihsan',
+  bio: 'Software Engineer & AI Enthusiast'
+      'dan Website Designer.',
 );
 
 const dummyProjects = <Project>[

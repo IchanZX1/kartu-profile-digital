@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../data/dummy_data.dart';
 import '../models/models.dart';
-import './profile_page.dart';
 import './project_detail_page.dart';
+import './edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,6 +14,20 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   Profile _profile = defaultProfile;
+
+  Future<void> _openEditProfile() async {
+  // await = tunggu sampai halaman Edit ditutup
+  final result = await Navigator.push<Profile>(
+    context,
+    MaterialPageRoute(
+      builder: (context) => EditProfilePage(profile: _profile),
+    ),
+  );
+
+  // Dua pengaman: widget masih aktif? ada hasil (tidak dibatalkan)?
+  if (!mounted || result == null) return;
+  setState(() => _profile = result);
+}
 
   // Tambahkan di dalam class _ProfilePageState
 void _openProjectDetail(Project project) {
@@ -34,7 +48,7 @@ void _openProjectDetail(Project project) {
           IconButton(
             icon: const Icon(Icons.edit),
             tooltip: 'Edit profil',
-            onPressed: () {}, // TODO: Lab 3
+            onPressed: () => _openEditProfile(), // TODO: Lab 3
           ),
         ],
       ),
