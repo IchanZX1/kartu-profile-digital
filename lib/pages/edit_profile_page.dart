@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
 import '../models/models.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
 
     // Tutup halaman SEKALIGUS kirim hasil ke halaman sebelumnya
-    Navigator.pop(context, updated);
+    context.pop(updated);
   }
 
   @override
@@ -77,7 +77,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () => Navigator.pop(context), // hasil = null
+                      onPressed: () => context.pop(),
                       child: const Text('Batal'),
                     ),
                   ),

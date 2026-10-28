@@ -5,6 +5,7 @@ import '../models/models.dart';
 // import './project_detail_page.dart';
 //import './edit_profile_page.dart';
 import '../app/app_routes.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,31 +18,21 @@ class _ProfilePageState extends State<ProfilePage> {
   Profile _profile = defaultProfile;
 
   Future<void> _openEditProfile() async {
-  final result = await Navigator.pushNamed(
-    context,
+  // push<Profile>: hasil sudah bertipe Profile?, tidak perlu `is!`
+  final result = await context.push<Profile>(
     AppRoutes.editProfile,
-    arguments: _profile,
+    extra: _profile, // objek dikirim lewat extra
   );
-
-  // `is Profile` = cek tipe sekaligus cek null
-  if (!mounted || result is! Profile) return;
-  setState(() => _profile = result);
-}
-
-void _openProjectDetail(Project project) {
-  Navigator.pushNamed(
-    context,
-    AppRoutes.projectDetail,
-    arguments: project, 
-  );
-}
+      if (!mounted || result == null) return;
+      setState(() => _profile = result);
+    }
+    
+    void _openProjectDetail(Project project) {
+      context.push(AppRoutes.projectDetail(project.id));
+    }
 
     void _logout() {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        AppRoutes.splash,
-        (route) => false, // false = hapus semua route lama
-      );
+      context.go(AppRoutes.splash); 
     }
 
   @override
@@ -94,7 +85,7 @@ void _openProjectDetail(Project project) {
               ),
             ),
             TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/halaman-ngawur'),
+            onPressed: () => context.go('/halaman-ngawur'),
             child: const Text('Uji 404'),
           ),
         ],
