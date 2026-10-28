@@ -36,6 +36,14 @@ void _openProjectDetail(Project project) {
   );
 }
 
+    void _logout() {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.splash,
+        (route) => false, // false = hapus semua route lama
+      );
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +54,11 @@ void _openProjectDetail(Project project) {
             icon: const Icon(Icons.edit),
             tooltip: 'Edit profil',
             onPressed: () => _openEditProfile(), // TODO: Lab 3
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Keluar',
+            onPressed: _logout,
           ),
         ],
       ),
@@ -80,6 +93,10 @@ void _openProjectDetail(Project project) {
                 onTap: () => _openProjectDetail(project), // TODO: Lab 2
               ),
             ),
+            TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/halaman-ngawur'),
+            child: const Text('Uji 404'),
+          ),
         ],
       ),
     );
